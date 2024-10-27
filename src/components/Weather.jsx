@@ -41,6 +41,8 @@ const Weather = () => {
 
     fetch(url)
       .then((result) => {
+        console.log(result);
+        
         if (!result.ok) {
           alert('Город не найден')
           throw new Error('Ошибка: ' + Response.status)

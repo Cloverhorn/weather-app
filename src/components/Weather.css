@@ -77,3 +77,15 @@
     width: 26px;
     margin-top: 10px;
 }
+
+@media (max-width: 450px) {
+    .weather {
+        width: 350px;
+    }
+    .temperature {
+        font-size: 60px;
+    }
+    .location {
+        font-size: 32px;
+    }
+}
