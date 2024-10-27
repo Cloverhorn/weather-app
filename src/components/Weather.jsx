@@ -25,7 +25,7 @@ const Weather = () => {
     '13n': assets.snow,
   }
 
-  function handleSubmit (event) {
+  function handleSubmit(event) {
 
     if (event.keyCode === 13) {
       search(inputRef.current.value)
@@ -71,10 +71,6 @@ const Weather = () => {
 
   return (
     <div className='weather'>
-      <div className="search-bar">
-        <input onKeyDown={handleSubmit} ref={inputRef} type="text" placeholder='Search' className="text" />
-        <img onClick={() => search(inputRef.current.value)} src={assets.search} alt="" />
-      </div>
 
       {weatherData
         ? <>
@@ -104,6 +100,10 @@ const Weather = () => {
         <>Api error</>
       }
 
+      <div className="search-bar">
+        <input onKeyDown={handleSubmit} ref={inputRef} type="text" placeholder='Search' className="text" />
+        <img onClick={() => search(inputRef.current.value)} src={assets.search} alt="" />
+      </div>
 
 
     </div>
