@@ -28,45 +28,72 @@ const Weather = () => {
   function handleSubmit(event) {
 
     if (event.keyCode === 13) {
-      search(inputRef.current.value)
+      search2(inputRef.current.value)
     }
   }
 
-  async function search(city) {
+
+  function search2(city) {
     if (city === '') {
       alert('Enter city name')
     }
-    try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_API_KEY}`
-      const response = await fetch(url)
-      const data = await response.json()
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_API_KEY}`
 
-      if (!response.ok) {
-        alert(data.message)
-        return
-      }
-
-      console.log(data)
-
-      // const icon = allIcons[data.weather.icon]
-      setWeatherData({
-        humidity: data.main.humidity,
-        windSpeed: data.wind.speed,
-        temperature: Math.floor(data.main.temp),
-        location: data.name,
-        icon: allIcons[data.weather[0].icon] || assets.clear
+    fetch(url)
+      .then((result) => {
+        if (!result.ok) {
+          alert('Город не найден')
+          throw new Error('Ошибка: ' + Response.status)
+        }
+        return result.json()
       })
+      .then((result) => {
+        setWeatherData({
+          humidity: result.main.humidity,
+          windSpeed: result.wind.speed,
+          temperature: Math.floor(result.main.temp),
+          location: result.name,
+          icon: allIcons[result.weather[0].icon] || assets.clear
+        })
+      })
+      .catch((error) => {
+        setWeatherData(false)
+        console.error(error)
+      })
+  }
 
-      console.log(await weatherData)
-    } catch (error) {
-      setWeatherData(false)
-      console.error(error)
-    }
-  };
+  // async function search(city) {
+  //   if (city === '') {
+  //     alert('Enter city name')
+  //   }
+  //   try {
+  //     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_API_KEY}`
+  //     const response = await fetch(url)
+  //     const data = await response.json()
+
+  //     if (!response.ok) {
+  //       alert(data.message)
+  //       return
+  //     }
+
+  //     // const icon = allIcons[data.weather.icon]
+  //     setWeatherData({
+  //       humidity: data.main.humidity,
+  //       windSpeed: data.wind.speed,
+  //       temperature: Math.floor(data.main.temp),
+  //       location: data.name,
+  //       icon: allIcons[data.weather[0].icon] || assets.clear
+  //     })
+
+  //   } catch (error) {
+  //     setWeatherData(false)
+  //     console.error(error)
+  //   }
+  // };
 
   useEffect(() => {
     inputRef.current.focus()
-    search('Saint Petersburg')
+    search2('Saint Petersburg')
   }, [])
 
   return (
@@ -102,7 +129,7 @@ const Weather = () => {
 
       <div className="search-bar">
         <input onKeyDown={handleSubmit} ref={inputRef} type="text" placeholder='Search' className="text" />
-        <img onClick={() => search(inputRef.current.value)} src={assets.search} alt="" />
+        <img onClick={() => search2(inputRef.current.value)} src={assets.search} alt="" />
       </div>
 
 
