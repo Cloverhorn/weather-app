@@ -25,6 +25,13 @@ const Weather = () => {
     '13n': assets.snow,
   }
 
+  function handleSubmit (event) {
+
+    if (event.keyCode === 13) {
+      search(inputRef.current.value)
+    }
+  }
+
   async function search(city) {
     if (city === '') {
       alert('Enter city name')
@@ -65,7 +72,7 @@ const Weather = () => {
   return (
     <div className='weather'>
       <div className="search-bar">
-        <input ref={inputRef} type="text" placeholder='Search' className="text" />
+        <input onKeyDown={handleSubmit} ref={inputRef} type="text" placeholder='Search' className="text" />
         <img onClick={() => search(inputRef.current.value)} src={assets.search} alt="" />
       </div>
 

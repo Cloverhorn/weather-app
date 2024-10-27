@@ -1,4 +1,5 @@
 .weather {
+    width: 410px;
     place-self: center;
     padding: 40px;
     border-radius: 12px;
@@ -45,6 +46,7 @@
 }
 
 .location {
+    text-align: center;
     color: #fff;
     font-size: 40px;
 }
